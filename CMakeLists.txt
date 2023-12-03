@@ -32,6 +32,7 @@ find_package(YARP 3.7 REQUIRED COMPONENTS os dev)
 
 # Soft dependencies.
 find_package(AMOR_API QUIET)
+find_package(ROBOTICSLAB_KINEMATICS_DYNAMICS QUIET)
 find_package(Doxygen QUIET)
 find_package(GTestSources 1.8 QUIET)
 

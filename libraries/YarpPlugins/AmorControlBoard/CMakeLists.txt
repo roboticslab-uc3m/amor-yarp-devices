@@ -1,5 +1,5 @@
-if(NOT AMOR_API_FOUND AND (NOT DEFINED ENABLE_AmorControlBoard OR ENABLE_AmorControlBoard))
-    message(WARNING "AMOR_API package not found, disabling AmorControlBoard")
+if(NOT TARGET AMOR::amor_api AND (NOT DEFINED ENABLE_AmorControlBoard OR ENABLE_AmorControlBoard))
+    message(WARNING "amor_api target not found, disabling AmorControlBoard")
 endif()
 
 yarp_prepare_plugin(AmorControlBoard
