@@ -81,7 +81,7 @@ jobs:
           path: .deps/amor-api
 
       - name: Install dependencies via apt
-        run: sudo apt-get install -qq ccache libboost-thread-dev
+        run: sudo apt-get install -qq ccache libboost-thread-dev libeigen3-dev
 
       - name: Set up CMake
         uses: jwlawson/actions-setup-cmake@v1
