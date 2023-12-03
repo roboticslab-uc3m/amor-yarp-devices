@@ -56,7 +56,7 @@ include(CMakeDependentOption)
 enable_testing()
 
 # Add main contents.
-#add_subdirectory(libraries)
+add_subdirectory(libraries)
 #add_subdirectory(programs)
 #add_subdirectory(tests)
 #add_subdirectory(share)
