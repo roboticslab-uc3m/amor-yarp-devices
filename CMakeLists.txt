@@ -64,6 +64,18 @@ add_subdirectory(libraries)
 add_subdirectory(doc)
 #add_subdirectory(examples/cpp)
 
+# Retrieve global properties.
+get_property(_exported_targets GLOBAL PROPERTY _exported_targets)
+get_property(_exported_dependencies GLOBAL PROPERTY _exported_dependencies)
+
+if(NOT DEFINED _exported_targets)
+    set(_no_export NO_EXPORT)
+endif()
+
+if(DEFINED _exported_dependencies)
+    list(REMOVE_DUPLICATES _exported_dependencies)
+endif()
+
 # Store the package in the user registry.
 set(CMAKE_EXPORT_PACKAGE_REGISTRY ON)
 
@@ -73,9 +85,11 @@ include(InstallBasicPackageFiles)
 install_basic_package_files(AMOR_YARP_DEVICES
                             VERSION 0.1.0
                             COMPATIBILITY AnyNewerVersion
+                            ${_no_export}
                             NO_SET_AND_CHECK_MACRO
                             NO_CHECK_REQUIRED_COMPONENTS_MACRO
-                            NAMESPACE ROBOTICSLAB::)
+                            NAMESPACE ROBOTICSLAB::
+                            DEPENDENCIES "${_exported_dependencies}")
 
 # Configure and create uninstall target.
 include(AddUninstallTarget)

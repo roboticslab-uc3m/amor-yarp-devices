@@ -1,9 +1,9 @@
 if(NOT DEFINED ENABLE_AmorCartesianControl OR ENABLE_AmorCartesianControl)
     if(NOT TARGET AMOR::amor_api)
         message(WARNING "amor_api target not found, disabling AmorCartesianControl")
-    elseif(NOT TARGET )
+    elseif(NOT TARGET ROBOTICSLAB::KinematicRepresentationLib)
         message(WARNING "KinematicRepresentationLib target not found, disabling AmorCartesianControl")
-    elseif(NOT TARGET )
+    elseif(NOT TARGET ROBOTICSLAB::KinematicsDynamicsInterfaces)
         message(WARNING "KinematicsDynamicsInterfaces target not found, disabling AmorCartesianControl")
     endif()
 endif()
@@ -32,9 +32,9 @@ if(NOT SKIP_AmorCartesianControl)
                                                ROBOTICSLAB::KinematicsDynamicsInterfaces)
 
     yarp_install(TARGETS AmorCartesianControl
-                 LIBRARY DESTINATION ${AMOR-KINEMATICS-DYNAMICS_DYNAMIC_PLUGINS_INSTALL_DIR}
-                 ARCHIVE DESTINATION ${AMOR-KINEMATICS-DYNAMICS_STATIC_PLUGINS_INSTALL_DIR}
-                 YARP_INI DESTINATION ${AMOR-KINEMATICS-DYNAMICS_PLUGIN_MANIFESTS_INSTALL_DIR})
+                 LIBRARY DESTINATION ${AMOR-YARP-DEVICES_DYNAMIC_PLUGINS_INSTALL_DIR}
+                 ARCHIVE DESTINATION ${AMOR-YARP-DEVICES_STATIC_PLUGINS_INSTALL_DIR}
+                 YARP_INI DESTINATION ${AMOR-YARP-DEVICES_PLUGIN_MANIFESTS_INSTALL_DIR})
 
 else()
 
