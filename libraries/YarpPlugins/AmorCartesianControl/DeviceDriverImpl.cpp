@@ -4,8 +4,6 @@
 
 #include <string>
 
-#include <yarp/conf/version.h>
-
 #include <yarp/os/Bottle.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Property.h>
