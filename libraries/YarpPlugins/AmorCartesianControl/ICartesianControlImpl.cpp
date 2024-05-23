@@ -357,9 +357,9 @@ bool AmorCartesianControl::act(int command)
 
 // -----------------------------------------------------------------------------
 
-void AmorCartesianControl::movi(const std::vector<double> &x)
+void AmorCartesianControl::pose(const std::vector<double> &x)
 {
-    yCWarning(ACC) << "movi() not supported, falling back to movj()";
+    yCWarning(ACC) << "pose() not supported, falling back to movj()";
     movj(x);
 }
 
