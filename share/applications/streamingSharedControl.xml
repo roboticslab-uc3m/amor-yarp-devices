@@ -33,14 +33,14 @@
 
     <module>
         <name>AmorCartesianControl</name>
-        <parameters>--name /amor/CartesianControl --kinematics /usr/local/share/amor/contexts/kinematics/armKinematics.ini</parameters>
+        <parameters>--name /amor/CartesianControl --kinematics /usr/local/share/amor-configuration-files/contexts/kinematics/amor-armKinematics.ini</parameters>
         <node>localhost</node>
         <deployer>yarpdev</deployer>
     </module>
 
     <module>
         <name>BasicCartesianControl</name>
-        <parameters>--name /amorSim/CartesianControl --from /usr/local/share/amor/contexts/kinematics/armKinematics.ini --local /BasicCartesianControl/amorSim --remote /amorRobot/amorManipulator</parameters>
+        <parameters>--name /amorSim/CartesianControl --from /usr/local/share/amor-configuration-files/contexts/kinematics/amor-armKinematics.ini --local /BasicCartesianControl/amorSim --remote /amorRobot/amorManipulator</parameters>
         <node>localhost</node>
         <deployer>yarpdev</deployer>
     </module>
