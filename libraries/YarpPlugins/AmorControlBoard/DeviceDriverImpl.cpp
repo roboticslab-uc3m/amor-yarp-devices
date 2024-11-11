@@ -87,7 +87,6 @@ bool AmorControlBoard::open(yarp::os::Searchable& config)
         cartesianControllerOptions.put("name", cartesianControllerName->asString());
         cartesianControllerOptions.put("handle", vHandle);
         cartesianControllerOptions.put("handleMutex", vHandleMutex);
-        cartesianControllerOptions.setMonitor(config.getMonitor(), subdevice.c_str());
 
         cartesianControllerDevice.open(cartesianControllerOptions);
 
