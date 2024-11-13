@@ -7,6 +7,7 @@
 #include <yarp/os/Bottle.h>
 #include <yarp/os/LogStream.h>
 #include <yarp/os/Property.h>
+#include <yarp/os/ResourceFinder.h>
 #include <yarp/os/Value.h>
 
 #include "KinematicRepresentation.hpp"
@@ -97,14 +98,17 @@ bool AmorCartesianControl::open(yarp::os::Searchable& config)
         qMax.addFloat64(KinRepresentation::radToDeg(jointInfo.upperJointLimit));
     }
 
-    auto kinematicsFile = config.check("kinematics", yarp::os::Value(""),
-            "path to file with description of AMOR kinematics").asString();
+    yarp::os::ResourceFinder rf;
+    rf.setDefaultContext("kinematics");
+
+    auto kinematicsFile = config.check("kinematics", yarp::os::Value(""), "path to file with description of AMOR kinematics").asString();
+    auto kinematicsFullPath = rf.findFileByName(kinematicsFile);
 
     yarp::os::Property cartesianDeviceOptions;
 
-    if (!cartesianDeviceOptions.fromConfigFile(kinematicsFile))
+    if (!cartesianDeviceOptions.fromConfigFile(kinematicsFullPath))
     {
-        yCError(ACC) << "Cannot read from --kinematics" << kinematicsFile;
+        yCError(ACC) << "Cannot read from --kinematics" << kinematicsFullPath;
         return false;
     }
 
