@@ -48,7 +48,7 @@ public:
     void twist(const std::vector<double> & xdot) override;
     void wrench(const std::vector<double> &w) override;
     yarp::dev::ReturnValue setParameter(Config vocab, config_value_t value) override;
-    yarp::dev::ReturnValue getParameter(Config vocab, config_value_t * value) override;
+    yarp::dev::ReturnValue getParameter(Config vocab, config_value_t & value) override;
     yarp::dev::ReturnValue setParameters(const config_map_t & params) override;
     yarp::dev::ReturnValue getParameters(config_map_t & params) override;
 

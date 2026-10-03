@@ -471,15 +471,15 @@ yarp::dev::ReturnValue AmorCartesianControl::setParameter(Config vocab, config_v
 
 // -----------------------------------------------------------------------------
 
-yarp::dev::ReturnValue AmorCartesianControl::getParameter(Config vocab, config_value_t * value)
+yarp::dev::ReturnValue AmorCartesianControl::getParameter(Config vocab, config_value_t & value)
 {
     switch (vocab)
     {
     case Config::GAIN:
-        *value = gain;
+        value = gain;
         break;
     case Config::FRAME:
-        *value = static_cast<yarp::conf::vocab32_t>(referenceFrame);
+        value = static_cast<yarp::conf::vocab32_t>(referenceFrame);
         break;
     default:
         yCError(ACC) << "Unrecognized or unsupported config parameter key:"
