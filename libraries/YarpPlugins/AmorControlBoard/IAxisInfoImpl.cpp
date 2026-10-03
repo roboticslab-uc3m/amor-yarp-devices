@@ -2,7 +2,7 @@
 
 #include "AmorControlBoard.hpp"
 
-#include <yarp/os/Log.h>
+#include <yarp/os/LogStream.h>
 
 #include "LogComponent.hpp"
 
@@ -10,13 +10,19 @@ using namespace roboticslab;
 
 // ------------------- IAxisInfo related ------------------------------------
 
-bool AmorControlBoard::getAxisName(int axis, std::string& name)
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+yarp::dev::ReturnValue AmorControlBoard::getAxisName(int axis, std::string & name)
+#else
+bool AmorControlBoard::getAxisName(int axis, std::string & name)
+#endif
 {
-    yCTrace(ACB, "%d", axis);
-
     if (!indexWithinRange(axis))
     {
-        return false;
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    return yarp::dev::ReturnValue_error_input_out_of_bounds;
+#else
+    return false;
+#endif
     }
 
     switch (axis)
@@ -43,27 +49,49 @@ bool AmorControlBoard::getAxisName(int axis, std::string& name)
             name = "A6";
             break;
         default:
-            yCError(ACB, "Unrecognized axis: %d", axis);
+            yCError(ACB) << "Unrecognized axis:" << axis;
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+            return yarp::dev::ReturnValue_error_input_out_of_bounds;
+#else
             return false;
+#endif
     }
 
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    return yarp::dev::ReturnValue_ok;
+#else
     return true;
+#endif
 }
 
 // -----------------------------------------------------------------------------
 
-bool AmorControlBoard::getJointType(int axis, yarp::dev::JointTypeEnum& type)
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+yarp::dev::ReturnValue AmorControlBoard::getJointType(int axis, yarp::dev::JointTypeEnum & type)
+#else
+bool AmorControlBoard::getJointType(int axis, yarp::dev::JointTypeEnum & type)
+#endif
 {
-    yCTrace(ACB, "%d", axis);
-
     if (!indexWithinRange(axis))
     {
-        return false;
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    return yarp::dev::ReturnValue_error_input_out_of_bounds;
+#else
+    return false;
+#endif
     }
 
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    type = yarp::dev::JointTypeEnum::VOCAB_JOINTTYPE_REVOLUTE;
+#else
     type = yarp::dev::VOCAB_JOINTTYPE_REVOLUTE;
+#endif
 
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    return yarp::dev::ReturnValue_ok;
+#else
     return true;
+#endif
 }
 
 // -----------------------------------------------------------------------------

@@ -25,22 +25,17 @@ constexpr auto DEFAULT_REFERENCE_FRAME = "base";
 
 bool AmorCartesianControl::open(yarp::os::Searchable& config)
 {
-    gain = config.check("controllerGain", yarp::os::Value(DEFAULT_GAIN),
-            "controller gain").asFloat64();
+    gain = config.check("controllerGain", yarp::os::Value(DEFAULT_GAIN), "controller gain").asFloat64();
 
-    waitPeriodMs = config.check("waitPeriodMs", yarp::os::Value(DEFAULT_WAIT_PERIOD_MS),
-            "wait command period (milliseconds)").asInt32();
-
-    auto referenceFrameStr = config.check("referenceFrame", yarp::os::Value(DEFAULT_REFERENCE_FRAME),
-            "reference frame (base|tcp)").asString();
+    auto referenceFrameStr = config.check("referenceFrame", yarp::os::Value(DEFAULT_REFERENCE_FRAME), "reference frame (base|tcp)").asString();
 
     if (referenceFrameStr == "base")
     {
-        referenceFrame = ICartesianSolver::BASE_FRAME;
+        referenceFrame = ICartesianSolver::Frame::BASE;
     }
     else if (referenceFrameStr == "tcp")
     {
-        referenceFrame = ICartesianSolver::TCP_FRAME;
+        referenceFrame = ICartesianSolver::Frame::TCP;
     }
     else
     {
@@ -130,7 +125,7 @@ bool AmorCartesianControl::open(yarp::os::Searchable& config)
         return false;
     }
 
-    currentState = VOCAB_CC_NOT_CONTROLLING;
+    currentState = Mode::NONE;
     return true;
 }
 

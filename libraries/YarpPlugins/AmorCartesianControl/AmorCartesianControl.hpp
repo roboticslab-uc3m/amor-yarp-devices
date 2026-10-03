@@ -34,25 +34,23 @@ class AmorCartesianControl : public yarp::dev::DeviceDriver,
 {
 public:
     // -- ICartesianControl declarations. Implementation in ICartesianControlImpl.cpp --
-    bool stat(std::vector<double> & x, int * state = nullptr, double * timestamp = nullptr) override;
-    bool inv(const std::vector<double> & xd, std::vector<double> & q) override;
-    bool movj(const std::vector<double> & xd) override;
-    bool relj(const std::vector<double> & xd) override;
-    bool movl(const std::vector<double> & xd) override;
-    bool movv(const std::vector<double> & xdotd) override;
-    bool gcmp() override;
-    bool forc(const std::vector<double> & fd) override;
-    bool stopControl() override;
-    bool wait(double timeout) override;
-    bool tool(const std::vector<double> & x) override;
-    bool act(int command) override;
+    yarp::dev::ReturnValue getState(ControllerState & state) override;
+    yarp::dev::ReturnValue solvePose(const std::vector<double> & xd, std::vector<double> & q) override;
+    yarp::dev::ReturnValue moveJoint(const std::vector<double> & xd) override;
+    yarp::dev::ReturnValue moveLinear(const std::vector<double> & xd) override;
+    yarp::dev::ReturnValue moveVelocity(const std::vector<double> & xdotd) override;
+    yarp::dev::ReturnValue gravityCompensation() override;
+    yarp::dev::ReturnValue forceControl(const std::vector<double> & fd) override;
+    yarp::dev::ReturnValue stopControl() override;
+    yarp::dev::ReturnValue changeTool(const std::vector<double> & x) override;
+    yarp::dev::ReturnValue actuateTool(Actuator command) override;
     void pose(const std::vector<double> & x) override;
     void twist(const std::vector<double> & xdot) override;
     void wrench(const std::vector<double> &w) override;
-    bool setParameter(int vocab, double value) override;
-    bool getParameter(int vocab, double * value) override;
-    bool setParameters(const std::map<int, double> & params) override;
-    bool getParameters(std::map<int, double> & params) override;
+    yarp::dev::ReturnValue setParameter(Config vocab, config_value_t value) override;
+    yarp::dev::ReturnValue getParameter(Config vocab, config_value_t * value) override;
+    yarp::dev::ReturnValue setParameters(const config_map_t & params) override;
+    yarp::dev::ReturnValue getParameters(config_map_t & params) override;
 
     // -------- DeviceDriver declarations. Implementation in DeviceDriverImpl.cpp --------
     bool open(yarp::os::Searchable & config) override;
@@ -66,15 +64,14 @@ private:
     mutable std::mutex * handleMutex {nullptr};
 
     yarp::dev::PolyDriver cartesianDevice;
-    ICartesianSolver * iCartesianSolver;
+    ICartesianSolver * iCartesianSolver {nullptr};
 
-    int currentState;
-    double gain;
-    int waitPeriodMs;
+    ICartesianControl::Mode currentState {Mode::NONE};
+    double gain {0.0};
 
     std::vector<double> qdotMax;
 
-    ICartesianSolver::reference_frame referenceFrame;
+    ICartesianSolver::Frame referenceFrame;
 };
 
 } // namespace roboticslab

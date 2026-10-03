@@ -13,30 +13,11 @@ using namespace roboticslab;
 
 // -----------------------------------------------------------------------------
 
-bool AmorControlBoard::indexWithinRange(const int& idx)
+bool AmorControlBoard::indexWithinRange(int idx)
 {
-    if (idx >= AMOR_NUM_JOINTS)
+    if (idx < 0 || idx >= AMOR_NUM_JOINTS)
     {
-        yCError(ACB, "Index out of range: %d >= %d", idx, AMOR_NUM_JOINTS);
-        return false;
-    }
-
-    return true;
-}
-
-// -----------------------------------------------------------------------------
-
-bool AmorControlBoard::batchWithinRange(const int& n_joint)
-{
-    if (n_joint == 0)
-    {
-        yCWarning(ACB, "Passed array of size (n_joint) equal to zero");
-        return true;
-    }
-
-    if (n_joint < 0 || n_joint > AMOR_NUM_JOINTS)
-    {
-        yCError(ACB, "n_joint out of range (< 0 or > %d): %d", AMOR_NUM_JOINTS, n_joint);
+        yCError(ACB, "Index out of range: < 0 || %d >= %d", idx, AMOR_NUM_JOINTS);
         return false;
     }
 
