@@ -64,6 +64,10 @@ bool AmorControlBoard::getControlModes(int * modes)
 {
     bool ok = true;
 
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    modes.resize(AMOR_NUM_JOINTS);
+#endif
+
     for (unsigned int i = 0; i < AMOR_NUM_JOINTS; i++)
     {
 #if YARP_VERSION_COMPARE(>=, 4, 0, 0)
@@ -89,6 +93,10 @@ bool AmorControlBoard::getControlModes(int n_joint, const int * joints, int * mo
 #endif
 {
     bool ok = true;
+
+#if YARP_VERSION_COMPARE(>=, 4, 0, 0)
+    modes.resize(joints.size());
+#endif
 
     #if YARP_VERSION_COMPARE(>=, 4, 0, 0)
     for (unsigned int i = 0; i < joints.size(); i++)
